@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Loreto Alegre — Product Designer</title>
+<meta name="description" content="Senior B2B/B2E Product Designer. 6 years designing complex enterprise tools with AI integration for expert users."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family:'DM Sans',sans-serif; background:#fff; color:#111; overflow-x:hidden; }
+
+/* ── NAV ── */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  padding:1.5rem 6vw; display:flex; justify-content:space-between; align-items:center;
+  background:rgba(255,255,255,0.88); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  opacity:0; animation:fadeDown 0.6s ease 0.8s forwards;
+}
+.nav-logo { font-family:'Syne',sans-serif; font-weight:700; font-size:1rem; text-decoration:none; color:#111; }
+nav ul { list-style:none; display:flex; gap:2.5rem; }
+nav ul a { text-decoration:none; color:#999; font-size:0.875rem; transition:color 0.2s; }
+nav ul a:hover { color:#111; }
+
+/* ── HERO ── */
+.hero {
+  min-height:100vh; display:flex; flex-direction:column;
+  justify-content:center; align-items:center;
+  text-align:center; padding:8rem 6vw 4rem;
+  position:relative; overflow:hidden;
+}
+.blob {
+  position:absolute; width:620px; height:620px; border-radius:50%;
+  background:radial-gradient(circle at 38% 42%, #7c6dfa 0%, #a855f7 32%, #c084f5 56%, #f0abfc 76%, transparent 100%);
+  filter:blur(80px); opacity:0; pointer-events:none;
+  top:50%; left:50%; transform:translate(-50%,-50%) scale(0.05);
+  animation:blobEntrance 1.4s cubic-bezier(0.22,1,0.36,1) 0.1s forwards;
+}
+@keyframes blobEntrance {
+  0%   { opacity:0; transform:translate(-50%,-50%) scale(0.05); filter:blur(20px); }
+  40%  { opacity:0.7; transform:translate(-50%,-50%) scale(1.15); filter:blur(90px); }
+  70%  { opacity:0.55; transform:translate(-50%,-50%) scale(0.92); filter:blur(75px); }
+  100% { opacity:0.48; transform:translate(-50%,-50%) scale(1); filter:blur(80px); }
+}
+.blob.floating { animation:blobFloat 10s ease-in-out infinite; }
+@keyframes blobFloat {
+  0%   { opacity:0.48; transform:translate(calc(-50% + var(--bx,0px)), calc(-50% + var(--by,0px))) scale(1); }
+  30%  { transform:translate(calc(-50% + var(--bx,0px)), calc(-50% + var(--by,0px))) scale(1.06); }
+  60%  { transform:translate(calc(-50% + var(--bx,0px)), calc(-50% + var(--by,0px))) scale(0.96); }
+  100% { opacity:0.48; transform:translate(calc(-50% + var(--bx,0px)), calc(-50% + var(--by,0px))) scale(1); }
+}
+.hero-content { position:relative; z-index:1; }
+.hero-eyebrow {
+  font-size:0.75rem; letter-spacing:0.14em; text-transform:uppercase;
+  color:#333; font-weight:500; margin-bottom:1.75rem;
+  opacity:0; animation:fadeUp 0.7s ease 0.9s forwards;
+}
+.hero h1 {
+  font-family:'Syne',sans-serif; font-weight:700;
+  font-size:clamp(3.25rem,9vw,7.5rem); line-height:0.97; letter-spacing:-0.03em; color:#111;
+  opacity:0; animation:fadeUp 0.85s ease 1.05s forwards;
+}
+.hero-sub {
+  margin-top:1.75rem; font-size:1.05rem; color:#666; font-weight:300;
+  max-width:500px; margin-left:auto; margin-right:auto; line-height:1.75;
+  opacity:0; animation:fadeUp 0.8s ease 1.2s forwards;
+}
+.hero-tags {
+  margin-top:1.5rem; display:flex; gap:0.5rem; justify-content:center; flex-wrap:wrap;
+  opacity:0; animation:fadeUp 0.7s ease 1.35s forwards;
+}
+.hero-tag {
+  padding:0.35rem 0.9rem; border-radius:100px; border:1px solid #e0e0e0;
+  font-size:0.78rem; color:#666; background:rgba(255,255,255,0.7); backdrop-filter:blur(4px);
+}
+.hero-cta {
+  margin-top:2.5rem; display:flex; gap:0.875rem; justify-content:center; flex-wrap:wrap;
+  opacity:0; animation:fadeUp 0.8s ease 1.5s forwards;
+}
+.btn-dark {
+  padding:0.8rem 2rem; background:#111; color:#fff; font-size:0.875rem; font-weight:500;
+  text-decoration:none; border-radius:100px; transition:background 0.25s,transform 0.25s;
+  display:inline-flex; align-items:center; gap:0.45rem;
+}
+.btn-dark:hover { background:#6c63ff; transform:translateY(-2px); }
+.btn-ghost {
+  padding:0.8rem 2rem; background:transparent; color:#555; font-size:0.875rem;
+  text-decoration:none; border-radius:100px; border:1px solid #ddd;
+  transition:border-color 0.2s,color 0.2s,transform 0.25s;
+}
+.btn-ghost:hover { border-color:#111; color:#111; transform:translateY(-2px); }
+.scroll-indicator {
+  position:absolute; bottom:2.5rem; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:6px; z-index:1;
+  opacity:0; animation:fadeIn 1s ease 2s forwards;
+}
+.scroll-indicator span { font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:#bbb; }
+.scroll-line { width:1px; height:36px; background:linear-gradient(to bottom,#bbb,transparent); animation:lineGrow 1.8s ease infinite; }
+@keyframes lineGrow {
+  0%   { transform:scaleY(0); transform-origin:top; opacity:1; }
+  50%  { transform:scaleY(1); transform-origin:top; }
+  51%  { transform-origin:bottom; }
+  100% { transform:scaleY(0); transform-origin:bottom; opacity:0; }
+}
+
+/* ── LOGOS ── */
+.logos-strip {
+  padding:2rem 6vw; border-top:1px solid #f0f0f0; border-bottom:1px solid #f0f0f0;
+  opacity:0; animation:fadeUp 0.7s ease 1.9s forwards;
+}
+.logos-label { font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:#ddd; text-align:center; margin-bottom:1.25rem; }
+.logos-row { display:flex; flex-wrap:wrap; justify-content:center; gap:0.375rem 2.5rem; align-items:center; }
+.logo-name {
+  font-family:'Syne',sans-serif; font-size:0.78rem; font-weight:700;
+  letter-spacing:0.07em; text-transform:uppercase; color:#d0d0d0;
+  transition:color 0.25s,transform 0.25s; cursor:default; display:inline-block;
+}
+.logo-name:hover { color:#888; transform:translateY(-2px); }
+
+/* ── WORK ── */
+.work-section { padding:7rem 6vw; }
+.section-label { font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:#bbb; margin-bottom:0.6rem; }
+.section-title {
+  font-family:'Syne',sans-serif; font-weight:700;
+  font-size:clamp(1.75rem,3.5vw,2.75rem); letter-spacing:-0.025em; line-height:1.1; color:#111; margin-bottom:0.75rem;
+}
+.section-sub {
+  font-size:0.9rem; color:#aaa; font-weight:300; margin-bottom:3.5rem;
+  display:flex; align-items:center; gap:0.75rem;
+}
+.section-sub a {
+  color:#6c63ff; text-decoration:none; font-weight:400;
+  display:inline-flex; align-items:center; gap:0.3rem;
+  transition:gap 0.2s;
+}
+.section-sub a:hover { gap:0.5rem; }
+
+.projects-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
+.proj-card {
+  border-radius:20px; overflow:hidden; position:relative; aspect-ratio:3/4;
+  display:flex; flex-direction:column; justify-content:flex-end; cursor:default;
+  opacity:0; transform:translateY(40px);
+  transition:transform 0.55s cubic-bezier(0.22,1,0.36,1), opacity 0.55s ease, box-shadow 0.4s ease;
+}
+.proj-card.visible { opacity:1; transform:translateY(0); }
+.proj-card:nth-child(2) { transition-delay:0.1s; }
+.proj-card:nth-child(3) { transition-delay:0.2s; }
+.proj-card:hover { transform:translateY(-10px); box-shadow:0 30px 60px rgba(0,0,0,0.12); }
+
+.card-bg { position:absolute; inset:0; }
+.bg-exlog { background:#0b0f16; }
+.bg-edf   { background:#04111f; }
+.bg-arval { background:#051a0e; }
+
+.card-glow { position:absolute; border-radius:50%; filter:blur(55px); pointer-events:none; }
+.card-gradient { position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,0.9) 0%,rgba(0,0,0,0.15) 55%,transparent 100%); }
+.card-hover-info {
+  position:absolute; inset:0; z-index:3;
+  background:rgba(0,0,0,0.55); backdrop-filter:blur(6px);
+  display:flex; flex-direction:column; justify-content:center; align-items:center;
+  padding:2rem; text-align:center; opacity:0; transition:opacity 0.35s ease;
+}
+.proj-card:hover .card-hover-info { opacity:1; }
+.hover-title { font-family:'Syne',sans-serif; font-weight:700; font-size:1rem; color:#fff; margin-bottom:0.75rem; }
+.hover-desc { font-size:0.82rem; color:rgba(255,255,255,0.7); line-height:1.65; font-weight:300; margin-bottom:1.25rem; }
+.hover-cta {
+  display:inline-flex; align-items:center; gap:0.4rem;
+  font-size:0.78rem; color:#fff; font-weight:500;
+  border:1px solid rgba(255,255,255,0.3); border-radius:100px;
+  padding:0.45rem 1rem; text-decoration:none;
+  transition:background 0.2s, border-color 0.2s;
+}
+.hover-cta:hover { background:rgba(255,255,255,0.15); border-color:rgba(255,255,255,0.6); }
+
+.card-content { position:relative; z-index:2; padding:1.6rem; }
+.card-num { font-size:0.65rem; letter-spacing:0.1em; color:rgba(255,255,255,0.3); text-transform:uppercase; margin-bottom:0.5rem; }
+.card-tag {
+  display:inline-block; padding:0.25rem 0.7rem; border-radius:100px;
+  font-size:0.65rem; font-weight:500; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:0.8rem;
+}
+.tag-ops   { background:rgba(232,100,30,0.22); color:#ffb499; border:1px solid rgba(232,100,30,0.28); }
+.tag-blue  { background:rgba(56,130,246,0.2);  color:#93c5fd; border:1px solid rgba(56,130,246,0.28); }
+.tag-data  { background:rgba(108,99,255,0.22); color:#c4b8ff; border:1px solid rgba(108,99,255,0.28); }
+.card-title { font-family:'Syne',sans-serif; font-weight:700; font-size:1.2rem; color:#fff; line-height:1.2; margin-bottom:0.5rem; }
+.card-sub   { font-size:0.78rem; color:rgba(255,255,255,0.45); font-weight:300; line-height:1.5; }
+
+/* ── SKILLS MARQUEE ── */
+.skills-strip { padding:5rem 6vw; background:#fafafa; overflow:hidden; }
+.skills-strip .section-title { margin-bottom:2.5rem; }
+.skills-marquee-wrap { position:relative; }
+.skills-marquee-wrap::before,
+.skills-marquee-wrap::after {
+  content:''; position:absolute; top:0; bottom:0; z-index:1; width:80px; pointer-events:none;
+}
+.skills-marquee-wrap::before { left:0; background:linear-gradient(to right,#fafafa,transparent); }
+.skills-marquee-wrap::after  { right:0; background:linear-gradient(to left,#fafafa,transparent); }
+.skills-marquee { display:flex; gap:0.75rem; width:max-content; animation:marqueeScroll 28s linear infinite; }
+.skills-marquee:hover { animation-play-state:paused; }
+@keyframes marqueeScroll { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+.skill-chip {
+  padding:0.55rem 1.2rem; border-radius:100px; border:1px solid #e8e8e8;
+  font-size:0.8rem; color:#555; background:#fff; white-space:nowrap;
+  transition:border-color 0.2s,color 0.2s,transform 0.2s; cursor:default;
+}
+.skill-chip:hover { border-color:#7c6dfa; color:#6c63ff; transform:translateY(-2px); }
+
+/* ── AGENT SECTION ── */
+.agent-section {
+  padding:7rem 6vw; background:#0d0d14; position:relative; overflow:hidden;
+}
+.agent-blob {
+  position:absolute; width:500px; height:500px; border-radius:50%;
+  background:radial-gradient(circle,#7c6dfa 0%,#a855f7 40%,transparent 70%);
+  filter:blur(100px); opacity:0.2; pointer-events:none;
+  top:50%; right:-100px; transform:translateY(-50%);
+  animation:agentBlobPulse 6s ease-in-out infinite;
+}
+@keyframes agentBlobPulse {
+  0%,100%{opacity:0.2;transform:translateY(-50%) scale(1);}
+  50%{opacity:0.3;transform:translateY(-50%) scale(1.1);}
+}
+.agent-inner {
+  display:grid; grid-template-columns:1fr 1.2fr; gap:5vw; align-items:center;
+  position:relative; z-index:1;
+}
+.agent-left { opacity:0; transform:translateX(-30px); transition:opacity 0.8s,transform 0.8s; }
+.agent-left.visible { opacity:1; transform:translateX(0); }
+.agent-eyebrow {
+  font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase;
+  color:rgba(124,109,250,0.8); margin-bottom:1rem;
+  display:flex; align-items:center; gap:0.5rem;
+}
+.agent-eyebrow::before { content:''; width:20px; height:1px; background:rgba(124,109,250,0.5); }
+.agent-left h2 {
+  font-family:'Syne',sans-serif; font-weight:700;
+  font-size:clamp(1.8rem,3.5vw,3rem); letter-spacing:-0.025em; line-height:1.1;
+  color:#fff; margin-bottom:1.25rem;
+}
+.agent-left h2 em {
+  font-style:italic; font-family:'DM Sans',sans-serif; font-weight:300;
+  background:linear-gradient(130deg,#7c6dfa,#ec4899);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.agent-left p { font-size:0.9375rem; color:rgba(255,255,255,0.5); font-weight:300; line-height:1.8; margin-bottom:2rem; }
+.agent-prompts { display:flex; flex-direction:column; gap:0.6rem; }
+.agent-prompt-btn {
+  display:flex; align-items:center; gap:0.75rem;
+  padding:0.75rem 1.1rem; border-radius:10px;
+  background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08);
+  cursor:pointer; transition:background 0.2s,border-color 0.2s,transform 0.2s;
+  font-family:'DM Sans',sans-serif; text-align:left; color:rgba(255,255,255,0.6); font-size:0.845rem;
+}
+.agent-prompt-btn:hover { background:rgba(124,109,250,0.12); border-color:rgba(124,109,250,0.3); color:#fff; transform:translateX(4px); }
+.agent-prompt-icon { font-size:1rem; flex-shrink:0; }
+
+.agent-right { opacity:0; transform:translateX(30px); transition:opacity 0.8s 0.15s,transform 0.8s 0.15s; }
+.agent-right.visible { opacity:1; transform:translateX(0); }
+.chat-widget-dark {
+  border-radius:20px; overflow:hidden; border:1px solid rgba(255,255,255,0.08);
+  background:#16161f; box-shadow:0 40px 80px rgba(0,0,0,0.4);
+}
+.chat-widget-dark .chat-header {
+  background:#1c1c28; padding:1rem 1.25rem;
+  display:flex; align-items:center; gap:0.75rem;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.chat-avatar-dark {
+  width:34px; height:34px; border-radius:50%;
+  background:linear-gradient(135deg,#7c6dfa,#ec4899);
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.72rem; font-weight:700; color:#fff; flex-shrink:0;
+}
+.chat-header-name-dark { font-size:0.875rem; font-weight:500; color:#fff; }
+.chat-status-dark { font-size:0.7rem; color:#22c55e; display:flex; align-items:center; gap:4px; }
+.chat-status-dark::before { content:''; width:6px; height:6px; border-radius:50%; background:#22c55e; display:block; }
+.chat-msgs-dark {
+  height:280px; overflow-y:auto; padding:1.1rem;
+  display:flex; flex-direction:column; gap:0.875rem; scroll-behavior:smooth;
+}
+.chat-msgs-dark::-webkit-scrollbar { width:3px; }
+.chat-msgs-dark::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.1); border-radius:2px; }
+.dmsg { display:flex; flex-direction:column; max-width:88%; }
+.dmsg.user { align-self:flex-end; align-items:flex-end; }
+.dmsg.ai   { align-self:flex-start; }
+.dmsg-bubble {
+  padding:0.65rem 0.95rem; border-radius:14px; font-size:0.845rem; line-height:1.6;
+  animation:msgIn 0.3s cubic-bezier(0.22,1,0.36,1) both;
+}
+@keyframes msgIn { from{opacity:0;transform:translateY(8px) scale(0.96);} to{opacity:1;transform:translateY(0) scale(1);} }
+.dmsg.user .dmsg-bubble { background:#7c6dfa; color:#fff; border-bottom-right-radius:4px; }
+.dmsg.ai   .dmsg-bubble { background:rgba(255,255,255,0.07); color:rgba(255,255,255,0.85); border-bottom-left-radius:4px; }
+.dmsg-typing .dmsg-bubble {
+  background:rgba(255,255,255,0.07); padding:0.875rem 0.95rem;
+  display:flex; gap:4px; align-items:center;
+}
+.typing-dot { width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,0.3); animation:typingBounce 1.2s ease infinite; }
+.typing-dot:nth-child(2){animation-delay:0.15s;}
+.typing-dot:nth-child(3){animation-delay:0.3s;}
+@keyframes typingBounce { 0%,60%,100%{transform:translateY(0);} 30%{transform:translateY(-6px);} }
+.chat-suggest-dark {
+  padding:0 1rem 0.875rem; display:flex; flex-wrap:wrap; gap:0.4rem;
+}
+.sug-btn-dark {
+  padding:0.35rem 0.8rem; border-radius:100px; border:1px solid rgba(255,255,255,0.1);
+  background:transparent; font-size:0.75rem; color:rgba(255,255,255,0.45); cursor:pointer;
+  transition:border-color 0.2s,color 0.2s,background 0.2s; font-family:'DM Sans',sans-serif;
+}
+.sug-btn-dark:hover { border-color:rgba(124,109,250,0.5); color:#c4b8ff; background:rgba(124,109,250,0.1); }
+.chat-input-dark {
+  border-top:1px solid rgba(255,255,255,0.06);
+  display:flex; padding:0.8rem 1rem; gap:0.5rem; align-items:center;
+}
+.chat-input-dark input {
+  flex:1; border:none; outline:none; font-family:'DM Sans',sans-serif;
+  font-size:0.845rem; color:#fff; background:transparent;
+}
+.chat-input-dark input::placeholder { color:rgba(255,255,255,0.2); }
+.chat-send-dark {
+  width:32px; height:32px; border-radius:50%;
+  background:linear-gradient(135deg,#7c6dfa,#a855f7); border:none;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  transition:opacity 0.2s,transform 0.2s; flex-shrink:0;
+}
+.chat-send-dark:hover { opacity:0.85; transform:scale(1.08); }
+
+/* ── CONTACT ── */
+.contact-section { padding:9rem 6vw; text-align:center; position:relative; overflow:hidden; }
+.contact-blob-bg {
+  position:absolute; width:700px; height:350px; top:50%; left:50%; transform:translate(-50%,-50%);
+  background:radial-gradient(ellipse,rgba(108,99,255,0.07) 0%,transparent 65%);
+  pointer-events:none; animation:contactPulse 5s ease-in-out infinite;
+}
+@keyframes contactPulse {
+  0%,100%{opacity:1;transform:translate(-50%,-50%) scale(1);}
+  50%{opacity:0.6;transform:translate(-50%,-50%) scale(1.1);}
+}
+.contact-inner { position:relative; z-index:1; opacity:0; transform:translateY(20px); transition:opacity 0.75s,transform 0.75s; }
+.contact-inner.visible { opacity:1; transform:translateY(0); }
+.contact-inner h2 {
+  font-family:'Syne',sans-serif; font-weight:700;
+  font-size:clamp(2.5rem,6vw,5.5rem); letter-spacing:-0.035em; line-height:1.0; color:#111; margin-bottom:1.25rem;
+}
+.contact-inner h2 em { font-style:italic; font-family:'DM Sans',sans-serif; font-weight:300; color:#999; }
+.contact-sub { font-size:0.9375rem; color:#999; max-width:380px; margin:0 auto 2.75rem; font-weight:300; line-height:1.75; }
+.contact-links { display:flex; justify-content:center; gap:0.875rem; flex-wrap:wrap; }
+
+footer { padding:1.75rem 6vw; border-top:1px solid #f0f0f0; display:flex; justify-content:space-between; align-items:center; }
+footer p { font-size:0.75rem; color:#ccc; }
+
+/* ── STICKY FAB ── */
+.chat-fab {
+  position:fixed; bottom:1.75rem; right:1.75rem; z-index:300;
+  padding:0.65rem 1.25rem; border-radius:100px;
+  background:#111; border:none; cursor:pointer;
+  display:flex; align-items:center; gap:0.5rem;
+  box-shadow:0 4px 24px rgba(0,0,0,0.15);
+  transition:background 0.25s,transform 0.25s,box-shadow 0.25s;
+  animation:fabEntrance 0.5s cubic-bezier(0.34,1.56,0.64,1) 2.2s both;
+  font-family:'DM Sans',sans-serif; font-size:0.8rem; font-weight:500; color:#fff;
+}
+@keyframes fabEntrance { from{opacity:0;transform:translateY(30px);} to{opacity:1;transform:translateY(0);} }
+.chat-fab:hover { background:#6c63ff; transform:translateY(-3px); box-shadow:0 8px 32px rgba(108,99,255,0.3); }
+.fab-dot { width:7px; height:7px; border-radius:50%; background:#22c55e; flex-shrink:0; animation:fabDotPulse 2s ease infinite; }
+@keyframes fabDotPulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+
+/* ── KEYFRAMES ── */
+@keyframes fadeUp   { from{opacity:0;transform:translateY(22px);}  to{opacity:1;transform:translateY(0);} }
+@keyframes fadeDown { from{opacity:0;transform:translateY(-10px);} to{opacity:1;transform:translateY(0);} }
+@keyframes fadeIn   { from{opacity:0;} to{opacity:1;} }
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .projects-grid { grid-template-columns:1fr; gap:1.25rem; }
+  .proj-card { aspect-ratio:16/9; }
+  .agent-inner { grid-template-columns:1fr; }
+  nav ul { display:none; }
+}
+@media(max-width:540px){
+  footer { flex-direction:column; gap:0.4rem; text-align:center; }
+  .chat-fab span { display:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">LA.</a>
+  <ul>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#agent">AI Agent</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="blob" id="blob"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Senior Product Designer · Paris</p>
+    <h1>Hello, I'm<br>Loreto.</h1>
+    <p class="hero-sub">B2B &amp; B2E product designer — I build enterprise tools that expert users actually want to use, including AI-powered experiences in high-stakes environments.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">B2B · B2E</span>
+      <span class="hero-tag">AI tools</span>
+      <span class="hero-tag">Expert users</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#work" class="btn-dark">
+        View work
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#contact" class="btn-ghost">Get in touch</a>
+    </div>
+  </div>
+  <div class="scroll-indicator"><span>Scroll</span><div class="scroll-line"></div></div>
+</section>
+
+<!-- LOGOS -->
+<div class="logos-strip">
+  <p class="logos-label">Previously with</p>
+  <div class="logos-row">
+    <span class="logo-name">Exlog</span>
+    <span class="logo-name">EDF Renouvelables</span>
+    <span class="logo-name">BNP Paribas</span>
+    <span class="logo-name">Arval</span>
+    <span class="logo-name">Soprasteria</span>
+    <span class="logo-name">Jaguar · Land Rover</span>
+    <span class="logo-name">Viamedis</span>
+  </div>
+</div>
+
+<!-- WORK -->
+<section class="work-section" id="work">
+  <p class="section-label">Selected work</p>
+  <h2 class="section-title">Some of my projects.</h2>
+  <p class="section-sub">
+    A few highlights — for a deeper look,
+    <a href="#contact">get in touch
+      <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </p>
+
+  <div class="projects-grid">
+
+    <!-- Excellence Logging -->
+    <div class="proj-card">
+      <div class="card-bg bg-exlog">
+        <div class="card-glow" style="width:280px;height:280px;background:#e8641e;top:-60px;right:-30px;opacity:0.45;"></div>
+        <div class="card-glow" style="width:180px;height:180px;background:#7c3aed;bottom:-20px;left:-20px;opacity:0.4;"></div>
+      </div>
+      <div class="card-gradient"></div>
+      <div class="card-hover-info">
+        <p class="hover-title">What I did</p>
+        <p class="hover-desc">End-to-end design of two operational tools for the drilling data pipeline. Discovery workshops with geologists, UX architecture, design system from scratch, and AI-assisted feature design.</p>
+        <a href="#contact" class="hover-cta">Contact for details
+          <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="card-content">
+        <p class="card-num">01 · 2023–2025</p>
+        <span class="card-tag tag-ops">Operational tools · AI</span>
+        <h3 class="card-title">Excellence Logging</h3>
+        <p class="card-sub">Geological data capture &amp; description for drilling ops</p>
+      </div>
+    </div>
+
+    <!-- EDF — azul -->
+    <div class="proj-card">
+      <div class="card-bg bg-edf">
+        <div class="card-glow" style="width:300px;height:300px;background:#2563eb;top:-60px;right:-40px;opacity:0.45;"></div>
+        <div class="card-glow" style="width:160px;height:160px;background:#0ea5e9;bottom:-20px;left:20px;opacity:0.35;"></div>
+      </div>
+      <div class="card-gradient"></div>
+      <div class="card-hover-info">
+        <p class="hover-title">What I did</p>
+        <p class="hover-desc">Replaced a fragile Excel-based process with a scalable B2B onboarding SaaS for solar asset managers — navigating complex data dependencies and contradictory expert requirements.</p>
+        <a href="#contact" class="hover-cta">Contact for details
+          <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="card-content">
+        <p class="card-num">02 · 2023</p>
+        <span class="card-tag tag-blue">Enterprise SaaS</span>
+        <h3 class="card-title">EDF Renewables</h3>
+        <p class="card-sub">Solar asset onboarding platform · 0→1</p>
+      </div>
+    </div>
+
+    <!-- Arval -->
+    <div class="proj-card">
+      <div class="card-bg bg-arval">
+        <div class="card-glow" style="width:280px;height:280px;background:#16a34a;top:-50px;left:-40px;opacity:0.3;"></div>
+        <div class="card-glow" style="width:150px;height:150px;background:#065f46;bottom:-20px;right:-20px;opacity:0.45;"></div>
+      </div>
+      <div class="card-gradient"></div>
+      <div class="card-hover-info">
+        <p class="hover-title">What I did</p>
+        <p class="hover-desc">Cross-platform UX research across three B2E fleet management tools in France, Spain and Italy — turning governance fragmentation into reusable interaction patterns.</p>
+        <a href="#contact" class="hover-cta">Contact for details
+          <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="card-content">
+        <p class="card-num">03 · 2022–2023</p>
+        <span class="card-tag tag-data">B2E Platform</span>
+        <h3 class="card-title">Arval · BNP Paribas</h3>
+        <p class="card-sub">Fleet management ecosystem · 3 markets</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS MARQUEE -->
+<div class="skills-strip">
+  <p class="section-label">Expertise</p>
+  <h2 class="section-title">What I bring.</h2>
+  <div class="skills-marquee-wrap">
+    <div class="skills-marquee">
+      <span class="skill-chip">B2B Design</span><span class="skill-chip">B2E Design</span>
+      <span class="skill-chip">AI UX Patterns</span><span class="skill-chip">Human-AI Interaction</span>
+      <span class="skill-chip">0→1 Products</span><span class="skill-chip">Design Systems</span>
+      <span class="skill-chip">UX Research</span><span class="skill-chip">Expert Users</span>
+      <span class="skill-chip">Usability Testing</span><span class="skill-chip">Workflow Design</span>
+      <span class="skill-chip">Workshop Facilitation</span><span class="skill-chip">Accessibility · WCAG</span>
+      <span class="skill-chip">Information Architecture</span><span class="skill-chip">Figma</span>
+      <span class="skill-chip">Prototyping</span><span class="skill-chip">Regulated Environments</span>
+      <span class="skill-chip">B2B Design</span><span class="skill-chip">B2E Design</span>
+      <span class="skill-chip">AI UX Patterns</span><span class="skill-chip">Human-AI Interaction</span>
+      <span class="skill-chip">0→1 Products</span><span class="skill-chip">Design Systems</span>
+      <span class="skill-chip">UX Research</span><span class="skill-chip">Expert Users</span>
+      <span class="skill-chip">Usability Testing</span><span class="skill-chip">Workflow Design</span>
+      <span class="skill-chip">Workshop Facilitation</span><span class="skill-chip">Accessibility · WCAG</span>
+      <span class="skill-chip">Information Architecture</span><span class="skill-chip">Figma</span>
+      <span class="skill-chip">Prototyping</span><span class="skill-chip">Regulated Environments</span>
+    </div>
+  </div>
+</div>
+
+<!-- AI AGENT -->
+<section class="agent-section" id="agent">
+  <div class="agent-blob"></div>
+  <div class="agent-inner">
+    <div class="agent-left">
+      <p class="agent-eyebrow">AI Agent</p>
+      <h2>Get to know me<br>through my<br><em>AI agent.</em></h2>
+      <p>Ask anything about my experience, approach, or what I'm looking for. My agent knows my work and answers only about professional topics.</p>
+      <div class="agent-prompts">
+        <button class="agent-prompt-btn" data-q="What do you specialise in as a designer?">
+          <span class="agent-prompt-icon">🎯</span> What do you specialise in?
+        </button>
+        <button class="agent-prompt-btn" data-q="What kind of role are you looking for?">
+          <span class="agent-prompt-icon">🔍</span> What role are you looking for?
+        </button>
+        <button class="agent-prompt-btn" data-q="Tell me about your experience with AI tools in design.">
+          <span class="agent-prompt-icon">🤖</span> Experience with AI tools?
+        </button>
+        <button class="agent-prompt-btn" data-q="How do you approach a new B2B design project?">
+          <span class="agent-prompt-icon">⚙️</span> How do you approach B2B design?
+        </button>
+        <button class="agent-prompt-btn" data-q="What makes you different as a designer?">
+          <span class="agent-prompt-icon">✨</span> What makes you different?
+        </button>
+      </div>
+    </div>
+    <div class="agent-right">
+      <div class="chat-widget-dark">
+        <div class="chat-header">
+          <div class="chat-avatar-dark">LA</div>
+          <div>
+            <div class="chat-header-name-dark">Loreto's AI Agent</div>
+            <div class="chat-status-dark">Ready to chat</div>
+          </div>
+        </div>
+        <div class="chat-msgs-dark" id="darkMsgs">
+          <div class="dmsg ai">
+            <div class="dmsg-bubble">Hi! I'm Loreto's AI agent. Ask me anything about her work, experience, or what she's looking for. 👋</div>
+          </div>
+        </div>
+        <div class="chat-suggest-dark" id="darkSuggestions">
+          <button class="sug-btn-dark">What do you specialise in?</button>
+          <button class="sug-btn-dark">AI experience?</button>
+          <button class="sug-btn-dark">What are you looking for?</button>
+        </div>
+        <div class="chat-input-dark">
+          <input id="darkInput" type="text" placeholder="Ask something about Loreto…" autocomplete="off"/>
+          <button class="chat-send-dark" id="darkSend" aria-label="Send">
+            <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M2 7h10M7 2l5 5-5 5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-blob-bg"></div>
+  <div class="contact-inner">
+    <p class="section-label" style="text-align:center;margin-bottom:1rem;">Contact</p>
+    <h2>Let's work<br><em>together.</em></h2>
+    <p class="contact-sub">Want to see detailed case studies or discuss a project? Reach out — I'd love to share more.</p>
+    <div class="contact-links">
+      <a href="mailto:loreto@loretoa.com" class="btn-dark">loreto@loretoa.com</a>
+      <a href="https://linkedin.com/in/loretoalegre" target="_blank" rel="noopener" class="btn-ghost">LinkedIn ↗</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Loreto Alegre</p>
+  <p>Paris, France</p>
+</footer>
+
+<!-- STICKY FAB -->
+<button class="chat-fab" onclick="document.getElementById('agent').scrollIntoView({behavior:'smooth'})">
+  <div class="fab-dot"></div>
+  <span>Talk to my agent</span>
+</button>
+
+<script>
+// ── BLOB ──
+const blob = document.getElementById('blob');
+let mx=0,my=0,bx=0,by=0;
+setTimeout(()=>{
+  blob.classList.add('floating');
+  document.addEventListener('mousemove',e=>{
+    const h=document.querySelector('.hero').getBoundingClientRect();
+    if(e.clientY<h.bottom+100){ mx=(e.clientX/window.innerWidth-.5)*90; my=(e.clientY/window.innerHeight-.5)*70; }
+  });
+  (function tick(){ bx+=(mx-bx)*0.035; by+=(my-by)*0.035;
+    blob.style.setProperty('--bx',bx+'px'); blob.style.setProperty('--by',by+'px');
+    requestAnimationFrame(tick); })();
+},1500);
+
+// ── REVEAL ──
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);} });
+},{threshold:0.1});
+document.querySelectorAll('.proj-card,.contact-inner,.agent-left,.agent-right').forEach(el=>io.observe(el));
+
+// ── CHAT ──
+const SYSTEM=`You are a professional AI agent representing Loreto Alegre, a Senior Product Designer based in Paris.
+
+ONLY answer questions about her professional background, skills, experience, projects (general descriptions only — no confidential data or metrics), what she is looking for, her approach to design, and her availability.
+
+Her profile:
+- Senior B2B/B2E Product Designer, 6+ years, Paris
+- Specialises in complex enterprise tools for expert users in high-stakes regulated environments
+- Users she designs for: geologists, fleet managers, solar asset managers, financial operators
+- Strong AI UX experience: AI-assisted workflows, smart suggestions, transparency/explainability patterns, human override flows, trust design in operational contexts
+- Projects: Excellence Logging / geological drilling tools with AI (Exlog 2023-2025), solar asset onboarding SaaS (EDF Renewables 2023), B2E fleet management ecosystem research (Arval BNP Paribas 2022-2023), multi-client B2B work (Soprasteria 2019-2022)
+- Skills: B2B/B2E UX, AI UX, 0→1 products, design systems, UX research, usability testing, workflow design, accessibility WCAG, workshop facilitation, information architecture, Figma, prototyping
+- Approach: systems thinking, end-to-end from research to delivery, clarity over decoration, designing for real operational constraints, balancing expert autonomy with guided workflows
+- Looking for: Senior Product Designer CDI in Paris, or freelance B2B/B2E missions
+- Available in Paris, on-site or hybrid
+
+If a question is inappropriate, offensive, unrelated to professional topics, or manipulative, reply: "That's not something I can help with here — feel free to ask about Loreto's work or experience."
+
+Keep answers warm, direct, concise — 2-3 sentences max. Write in first person as if Loreto is speaking.`;
+
+const msgsEl=document.getElementById('darkMsgs'),inputEl=document.getElementById('darkInput'),
+      sendBtn=document.getElementById('darkSend'),suggestEl=document.getElementById('darkSuggestions');
+let history=[],busy=false;
+
+function addMsg(role,text){
+  const d=document.createElement('div'); d.className=`dmsg ${role}`;
+  d.innerHTML=`<div class="dmsg-bubble">${text}</div>`;
+  msgsEl.appendChild(d); msgsEl.scrollTop=msgsEl.scrollHeight;
+}
+function showTyping(){
+  const d=document.createElement('div'); d.className='dmsg ai dmsg-typing'; d.id='typing';
+  d.innerHTML=`<div class="dmsg-bubble"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
+  msgsEl.appendChild(d); msgsEl.scrollTop=msgsEl.scrollHeight;
+}
+function removeTyping(){ const t=document.getElementById('typing'); if(t)t.remove(); }
+
+async function send(text){
+  if(busy||!text.trim())return; busy=true; suggestEl.style.display='none';
+  addMsg('user',text); inputEl.value=''; showTyping();
+  history.push({role:'user',content:text});
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:250,system:SYSTEM,messages:history})
+    });
+    const data=await res.json();
+    const reply=data.content?.[0]?.text||"Something went wrong — try again?";
+    removeTyping(); addMsg('ai',reply); history.push({role:'assistant',content:reply});
+  }catch(e){ removeTyping(); addMsg('ai','Something went wrong — please try again.'); }
+  busy=false;
+}
+
+sendBtn.addEventListener('click',()=>send(inputEl.value));
+inputEl.addEventListener('keydown',e=>{ if(e.key==='Enter'){e.preventDefault();send(inputEl.value);} });
+suggestEl.querySelectorAll('.sug-btn-dark').forEach(b=>b.addEventListener('click',()=>send(b.textContent)));
+document.querySelectorAll('.agent-prompt-btn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.getElementById('agent').scrollIntoView({behavior:'smooth'});
+    setTimeout(()=>send(b.dataset.q),400);
+  });
+});
+</script>
+</body>
+</html>
