@@ -692,7 +692,7 @@ async function send(text){
   try{
     const res=await fetch('/api/chat',{
       method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-5', ...})
+     body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:250,system:SYSTEM,messages:history})
     });
     const data=await res.json();
     const reply=data.content?.[0]?.text||"Something went wrong — try again?";
