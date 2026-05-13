@@ -11,7 +11,36 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body { font-family:'DM Sans',sans-serif; background:#fff; color:#111; overflow-x:hidden; }
+body { font-family:'DM Sans',sans-serif; background:#fff; color:#111; overflow-x:hidden; cursor:none; }
+
+/* ── CUSTOM CURSOR ── */
+#cur-dot {
+  width:6px; height:6px; border-radius:50%;
+  background:#111; position:fixed; top:0; left:0;
+  pointer-events:none; z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:background 0.15s, transform 0.1s;
+}
+#cur-ring {
+  width:32px; height:32px; border-radius:50%;
+  border:1.5px solid rgba(0,0,0,0.25);
+  position:fixed; top:0; left:0;
+  pointer-events:none; z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:width 0.25s cubic-bezier(0.22,1,0.36,1),
+             height 0.25s cubic-bezier(0.22,1,0.36,1),
+             border-color 0.2s, background 0.2s;
+}
+#cur-label {
+  position:fixed; top:0; left:0; pointer-events:none; z-index:9997;
+  font-size:0.6rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase;
+  color:#fff; transform:translate(-50%,-50%);
+  opacity:0; transition:opacity 0.18s ease;
+  white-space:nowrap;
+}
+
+/* hide default on all interactive elements */
+a, button, [data-cursor], .proj-row, .hl, .skill-chip, .logo-name { cursor:none; }
 
 /* ── NAV ── */
 nav {
@@ -135,11 +164,15 @@ nav ul a:hover { color:#111; }
 .hl-popup {
   position:absolute; bottom:calc(100% + 12px); left:50%;
   transform:translateX(-50%) translateY(6px) scale(0.94);
-  pointer-events:none; z-index:100; opacity:0; width:230px;
+  pointer-events:none; z-index:100; opacity:0; width:200px;
   transition:opacity 0.2s ease, transform 0.2s ease;
 }
 .hl:hover .hl-popup { opacity:1; transform:translateX(-50%) translateY(0) scale(1); }
-.hl-popup img { width:100%; height:140px; object-fit:cover; border-radius:10px; display:block; box-shadow:0 16px 48px rgba(0,0,0,0.15); }
+.hl-popup img {
+  width:100%; height:auto; max-height:280px;
+  object-fit:cover; border-radius:10px; display:block;
+  box-shadow:0 16px 48px rgba(0,0,0,0.15);
+}
 .hl-popup-label { font-size:0.6rem; letter-spacing:0.08em; text-transform:uppercase; color:#999; text-align:center; margin-top:0.35rem; }
 
 /* sticky notes */
@@ -369,6 +402,11 @@ footer p { font-size:0.75rem; color:#ccc; }
 </head>
 <body>
 
+<!-- CURSOR -->
+<div id="cur-dot"></div>
+<div id="cur-ring"></div>
+<div id="cur-label"></div>
+
 <!-- NAV -->
 <nav>
   <a class="nav-logo" href="#">LA.</a>
@@ -424,7 +462,8 @@ footer p { font-size:0.75rem; color:#ccc; }
       Most of my work happens in
       <span class="hl" data-img="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=480&q=80" data-label="Solar park · EDF Renewables">environments where mistakes are expensive</span>
       — users are experts, workflows are deeply operational, and a poorly designed interface has real consequences.<br><br>
-      I'm especially drawn to the tension between automation and control: how AI can accelerate decisions without removing human judgment from the equation.<br><br>
+      I'm especially drawn to the tension between automation and control: how AI can accelerate decisions without removing
+      <span class="hl" data-img="./oilpump.png" data-label="Field operations · Exlog">human judgment from the equation</span>.<br><br>
       Outside of work, I
       <span class="hl" data-img="./painting.png" data-label="Watercolour · personal">paint</span>,
       build small internet products that have a point of view, and systematically taste and rate
@@ -469,7 +508,7 @@ footer p { font-size:0.75rem; color:#ccc; }
       <!-- Exlog -->
       <div class="proj-row">
         <div class="proj-img">
-          <img src="./exlog_image.png" alt="Excellence Logging — LithoSmart"/>
+          <img src="./oilpump.png" alt="Excellence Logging — Oil & Gas"/>
           <span class="proj-img-tag tag-nda">🔒 NDA</span>
         </div>
         <div class="proj-info">
@@ -570,9 +609,9 @@ footer p { font-size:0.75rem; color:#ccc; }
       <!-- Job Hunter -->
       <div class="proj-row">
         <div class="proj-img">
-          <div class="proj-img-placeholder">
-            <span>JOB HUNTER</span>
-          </div>
+          <video autoplay muted loop playsinline>
+            <source src="./jobhunter.mp4" type="video/mp4">
+          </video>
           <span class="proj-img-tag" style="background:rgba(108,92,231,0.3);color:#a29bfe;border:1px solid rgba(108,92,231,0.25);">Coming soon</span>
         </div>
         <div class="proj-info">
@@ -712,6 +751,93 @@ setTimeout(()=>{
     blob.style.setProperty('--bx',bx+'px'); blob.style.setProperty('--by',by+'px');
     requestAnimationFrame(tick); })();
 },1500);
+
+// CUSTOM CURSOR
+const curDot   = document.getElementById('cur-dot');
+const curRing  = document.getElementById('cur-ring');
+const curLabel = document.getElementById('cur-label');
+let cx=0,cy=0, rx=0,ry=0;
+
+document.addEventListener('mousemove', e => {
+  cx = e.clientX; cy = e.clientY;
+  curDot.style.left = cx+'px'; curDot.style.top = cy+'px';
+});
+
+(function tickCursor(){
+  rx += (cx-rx)*0.10; ry += (cy-ry)*0.10;
+  curRing.style.left  = rx+'px'; curRing.style.top  = ry+'px';
+  curLabel.style.left = rx+'px'; curLabel.style.top = ry+'px';
+  requestAnimationFrame(tickCursor);
+})();
+
+// Cursor states
+function setCursor(state, label=''){
+  if(state === 'link'){
+    curRing.style.width  = '44px';
+    curRing.style.height = '44px';
+    curRing.style.borderColor = 'rgba(108,99,255,0.5)';
+    curRing.style.background  = 'transparent';
+    curDot.style.background   = '#6c63ff';
+    curLabel.style.opacity    = '0';
+  } else if(state === 'project'){
+    curRing.style.width  = '72px';
+    curRing.style.height = '72px';
+    curRing.style.borderColor = 'transparent';
+    curRing.style.background  = 'rgba(17,17,17,0.85)';
+    curDot.style.background   = 'transparent';
+    curLabel.style.opacity    = '1';
+    curLabel.textContent      = label || 'VIEW';
+  } else if(state === 'text'){
+    curRing.style.width  = '3px';
+    curRing.style.height = '28px';
+    curRing.style.borderRadius = '2px';
+    curRing.style.borderColor = '#111';
+    curRing.style.background  = '#111';
+    curDot.style.background   = 'transparent';
+    curLabel.style.opacity    = '0';
+  } else {
+    // default
+    curRing.style.width  = '32px';
+    curRing.style.height = '32px';
+    curRing.style.borderRadius = '50%';
+    curRing.style.borderColor = 'rgba(0,0,0,0.25)';
+    curRing.style.background  = 'transparent';
+    curDot.style.background   = '#111';
+    curLabel.style.opacity    = '0';
+  }
+}
+
+// Apply states to elements
+document.querySelectorAll('a, button, .sug-btn-dark, .agent-prompt-btn').forEach(el => {
+  el.addEventListener('mouseenter', () => setCursor('link'));
+  el.addEventListener('mouseleave', () => setCursor('default'));
+});
+
+document.querySelectorAll('.proj-row').forEach(el => {
+  el.addEventListener('mouseenter', () => setCursor('project', 'VIEW'));
+  el.addEventListener('mouseleave', () => setCursor('default'));
+});
+
+document.querySelectorAll('.about-text').forEach(el => {
+  el.addEventListener('mouseenter', () => setCursor('text'));
+  el.addEventListener('mouseleave', () => setCursor('default'));
+});
+
+document.querySelectorAll('.hl').forEach(el => {
+  el.addEventListener('mouseenter', () => setCursor('link'));
+  el.addEventListener('mouseleave', () => setCursor('text'));
+});
+
+// Hide cursor when leaving window
+document.addEventListener('mouseleave', () => {
+  curDot.style.opacity  = '0';
+  curRing.style.opacity = '0';
+  curLabel.style.opacity = '0';
+});
+document.addEventListener('mouseenter', () => {
+  curDot.style.opacity  = '1';
+  curRing.style.opacity = '1';
+});
 
 // REVEAL on scroll
 const io = new IntersectionObserver(entries=>{
