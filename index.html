@@ -849,7 +849,10 @@ document.querySelectorAll('.proj-row,.contact-inner,.agent-left,.agent-right').f
 document.querySelectorAll('.hl[data-img]').forEach(el=>{
   const pop = document.createElement('span');
   pop.className = 'hl-popup';
-  pop.innerHTML = `<img src="${el.dataset.img}" alt=""/><div class="hl-popup-label">${el.dataset.label||''}</div>`;
+ const media = el.dataset.video
+  ? `<video src="${el.dataset.video}" autoplay muted loop playsinline style="width:100%;border-radius:10px;display:block;box-shadow:0 16px 48px rgba(0,0,0,0.15);"></video>`
+  : `<img src="${el.dataset.img}" alt="" style="width:100%;height:auto;max-height:280px;object-fit:cover;border-radius:10px;display:block;box-shadow:0 16px 48px rgba(0,0,0,0.15);"/>`;
+pop.innerHTML = `${media}<div class="hl-popup-label">${el.dataset.label||''}</div>`;
   el.style.position = 'relative';
   el.appendChild(pop);
 });
