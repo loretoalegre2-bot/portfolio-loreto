@@ -463,7 +463,7 @@ footer p { font-size:0.75rem; color:#ccc; }
       <span class="hl" data-img="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=480&q=80" data-label="Solar park · EDF Renewables">environments where mistakes are expensive</span>
       — users are experts, workflows are deeply operational, and a poorly designed interface has real consequences.<br><br>
       I'm especially drawn to the tension between automation and control: how AI can accelerate decisions without removing
-      <span class="hl" data-img="./oilpump.png" data-label="Field operations · Exlog">human judgment from the equation</span>.<br><br>
+      <span class="hl" data-video="./human.mp4" data-label="Human judgment · field ops">human judgment from the equation</span>.<br><br>
       Outside of work, I
       <span class="hl" data-img="./painting.png" data-label="Watercolour · personal">paint</span>,
       build small internet products that have a point of view, and systematically taste and rate
@@ -846,13 +846,13 @@ const io = new IntersectionObserver(entries=>{
 document.querySelectorAll('.proj-row,.contact-inner,.agent-left,.agent-right').forEach(el=>io.observe(el));
 
 // HOVER IMAGES in about
-document.querySelectorAll('.hl[data-img]').forEach(el=>{
+document.querySelectorAll('.hl[data-img], .hl[data-video]').forEach(el=>{
   const pop = document.createElement('span');
   pop.className = 'hl-popup';
- const media = el.dataset.video
-  ? `<video src="${el.dataset.video}" autoplay muted loop playsinline style="width:100%;border-radius:10px;display:block;box-shadow:0 16px 48px rgba(0,0,0,0.15);"></video>`
-  : `<img src="${el.dataset.img}" alt="" style="width:100%;height:auto;max-height:280px;object-fit:cover;border-radius:10px;display:block;box-shadow:0 16px 48px rgba(0,0,0,0.15);"/>`;
-pop.innerHTML = `${media}<div class="hl-popup-label">${el.dataset.label||''}</div>`;
+  const media = el.dataset.video
+    ? `<video src="${el.dataset.video}" autoplay muted loop playsinline style="width:100%;border-radius:10px;display:block;box-shadow:0 16px 48px rgba(0,0,0,0.15);"></video>`
+    : `<img src="${el.dataset.img}" alt="" style="width:100%;height:auto;max-height:280px;object-fit:cover;border-radius:10px;display:block;box-shadow:0 16px 48px rgba(0,0,0,0.15);"/>`;
+  pop.innerHTML = `${media}<div class="hl-popup-label">${el.dataset.label||''}</div>`;
   el.style.position = 'relative';
   el.appendChild(pop);
 });
